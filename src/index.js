@@ -1,13 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import './index.css';
+import AppRouter from './routers/AppRouter';
+
+import configureStore from './redux/configureStore'
+import { Provider } from 'react-redux';
+
+import {onAuthStateChanged, getAuth} from './firebase/FirebaseConfig'
+import {loginAction, logoutAction} from './redux/actions'
+
+
+const store = configureStore();
+
+store.subscribe(()=>{
+  console.log("===== Store Changed ====");
+  console.log(store.getState());
+  console.log("------------------------");
+});
+
+onAuthStateChanged(getAuth(), (user) => {
+  if (user) {
+      console.log("User Login: ", user.uid);
+      store.dispatch(loginAction(user.uid, user.photoURL));
+  } else {
+     
+      console.log("User Logout.");
+      store.dispatch(logoutAction());
+      
+  }
+});
+
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>, 
   document.getElementById('root')
 );
 
