@@ -1,5 +1,5 @@
 import React from 'react'
-import { userLogin , userLogout} from '../firebase/FirebaseConfig';
+import { userLogin } from '../firebase/FirebaseConfig';
 
 
 const LoginPage = () => {
@@ -10,7 +10,7 @@ const LoginPage = () => {
         <p>Login Page</p>
         <hr />
         <button onClick={userLogin}>Login</button>
-        <button onClick={userLogout}>Login</button>
+        
     </div>
   )
 }

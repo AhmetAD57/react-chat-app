@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase } from "firebase/database";
+import { getFirestore, collection , addDoc, getDocs, onSnapshot, doc} from "firebase/firestore";
 import {GoogleAuthProvider, signInWithPopup, onAuthStateChanged, getAuth, signOut} from "firebase/auth"
 
 const firebaseConfig = {
@@ -12,13 +12,47 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
 const provider = new GoogleAuthProvider();
 
-export {database as default, provider, signInWithPopup, onAuthStateChanged, getAuth, signOut}
+
+
+const db = getFirestore(app);
+const coll= collection(db, "users");
+
+
+
+
+export const getAllMessages = ()=>{
+  
+  
+        // addDoc(collection(db, "users"), {
+        //   first: "Ada",
+        //   last: "Lovelace",
+        //   born: 1815
+        // }).then(snapshot =>{ console.log("Document written with ID: ", snapshot.id)});
+       
+        getDocs(coll).then(snapshot =>{
+            snapshot.docs.forEach(doc => console.log(doc.data().born));
+          
+        })
+      
+  
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 export const userLogin = _ => signInWithPopup(getAuth(), provider);
 export const userLogout = _ => signOut(getAuth());
+
+export {provider, signInWithPopup, onAuthStateChanged, getAuth, signOut}
