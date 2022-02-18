@@ -22,28 +22,19 @@ const coll= collection(db, "users");
 
 
 
-export const getAllMessages = ()=>{
-  
-  
-        // addDoc(collection(db, "users"), {
+
+
+
+
+///realtime get onSnapshot
+
+
+  // addDoc(collection(db, "users"), {
         //   first: "Ada",
         //   last: "Lovelace",
         //   born: 1815
         // }).then(snapshot =>{ console.log("Document written with ID: ", snapshot.id)});
        
-        getDocs(coll).then(snapshot =>{
-            snapshot.docs.forEach(doc => console.log(doc.data().born));
-          
-        })
-      
-  
-}
-
-
-
-
-
-
 
 
 
@@ -55,4 +46,4 @@ export const getAllMessages = ()=>{
 export const userLogin = _ => signInWithPopup(getAuth(), provider);
 export const userLogout = _ => signOut(getAuth());
 
-export {provider, signInWithPopup, onAuthStateChanged, getAuth, signOut}
+export {provider, signInWithPopup, onAuthStateChanged, getAuth, signOut, onSnapshot, coll}

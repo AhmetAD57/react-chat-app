@@ -8,7 +8,7 @@ import AppRouter from './routers/AppRouter';
 import configureStore from './redux/configureStore'
 import { Provider } from 'react-redux';
 
-import {onAuthStateChanged, getAuth} from './firebase/FirebaseConfig'
+import {onAuthStateChanged, getAuth, onSnapshot, coll} from './firebase/FirebaseConfig'
 import {loginAction, logoutAction} from './redux/actions'
 
 
@@ -32,8 +32,6 @@ onAuthStateChanged(getAuth(), (user) => {
   }
   renderApp();
 });
-
-
 
 
 let isRendered = false;
