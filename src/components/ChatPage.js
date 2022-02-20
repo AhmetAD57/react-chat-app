@@ -1,34 +1,35 @@
-import React from 'react'
-import { userLogout, onSnapshot, coll } from '../firebase/FirebaseConfig';
+import React, { useEffect, useState } from "react";
+import { userLogout, onSnapshot, coll } from "../firebase/FirebaseConfig";
 
-import { MessageTypeSection } from './MessageTypeSection';
-import { ChatMessagesSection } from './ChatMessagesSection';
+import { MessageTypeSection } from "./MessageTypeSection";
+import { ChatMessagesSection } from "./ChatMessagesSection";
 const ChatPage = () => {
-  let allChat = [];
-  
-  onSnapshot(coll, snapshot =>{
-     snapshot.docs.forEach(doc => allChat.push(doc.data()));
-     console.log("toggle-------");
-  })
-  
-  return (
-    <div>
-      <div>ChatPage</div>
-      <button onClick={userLogout}>Logout</button>
-      <hr/>
-     
-      <ChatMessagesSection chatMessages={allChat}/>
-      
+    const [messages, setMessages] = useState([]);
 
+    useEffect(() => {
+        //setMessages([]);
+        onSnapshot(coll, (querySnapshot) => {
+            const data = querySnapshot.docs.map((doc) => {
+                setMessages((arr) => [...arr, doc.data()]);
+            });
+        });
+    }, []);
 
-      <MessageTypeSection message= {(msg) => {
-        console.log(msg);
-      }} />
+    return (
+        <div>
+            <div>Chat app</div>
+            <button onClick={userLogout}>Logout</button>
+            <hr />
 
-      
+            <ChatMessagesSection chatMessages={messages} />
 
-    </div>
-  )
-}
+            <MessageTypeSection
+                message={(msg) => {
+                    console.log(msg);
+                }}
+            />
+        </div>
+    );
+};
 
 export default ChatPage;

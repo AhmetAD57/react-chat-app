@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const MessageBox = ({msgContent}) => {
+export const MessageBox = ({born, last}) => {
   return (
    
        <li>
-           {msgContent.first}
+          <p>You clicked {born} times</p>
        </li>
   
   )

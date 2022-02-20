@@ -34,18 +34,16 @@ onAuthStateChanged(getAuth(), (user) => {
 });
 
 
-let isRendered = false;
+
 const renderApp = () => {
-    if(!isRendered) {
-        // Provider ile App routerdan erişile tüm componentlere veriler aktarıla biliniyor. Veriler store dan alınıyor.
-        ReactDOM.render(
-            <Provider store={store}>
-                <AppRouter />
-            </Provider>, 
-            document.getElementById('root')
-        );
-        isRendered = true;
-    }
+    // Provider ile App routerdan erişile tüm componentlere veriler aktarıla biliniyor. Veriler store dan alınıyor.
+    ReactDOM.render(
+        <Provider store={store}>
+            <AppRouter />
+        </Provider>, 
+        document.getElementById('root')
+    );
+    
 }
 
 // If you want to start measuring performance in your app, pass a function
