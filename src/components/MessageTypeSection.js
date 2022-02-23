@@ -1,16 +1,11 @@
 import React, {useState} from "react";
 
 export const MessageTypeSection = (props) => {
-    const [message, setMessage] = useState();
+    const [message, setMessage] = useState("");
     
-
-    const onTypingChange = msg => {
-        setMessage(msg.target.value);
-    }
-
     const messageSend = (e) => {
         if(message.length != 0){
-            props.message(message);
+            props.typedMessage(message);
         }
        setMessage("");
     }
@@ -21,7 +16,7 @@ export const MessageTypeSection = (props) => {
         <div>
             
             <div>
-                <input placeholder="message enter" onChange={onTypingChange} value={message} />
+                <input placeholder="message enter" onChange={(e) => setMessage(e.target.value)} value={message} />
             </div>
 
             <div>

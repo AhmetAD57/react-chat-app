@@ -1,10 +1,12 @@
+import { browserSessionPersistence } from 'firebase/auth'
 import React from 'react'
 
-export const MessageBox = ({born, last}) => {
+export const MessageBox = ({currentMessage}) => {
+  const {uId, message, profileImageURL, creatingTime} = currentMessage
   return (
    
        <li>
-          <p>You clicked {born} times</p>
+          <p><img src={profileImageURL} alt="" />   {uId}: {message}</p>
        </li>
   
   )

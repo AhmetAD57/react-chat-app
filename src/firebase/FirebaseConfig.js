@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection , addDoc, getDocs, onSnapshot, doc} from "firebase/firestore";
+import { getFirestore, collection , addDoc, getDocs, onSnapshot, doc, serverTimestamp, query, orderBy, limit } from "firebase/firestore";
 import {GoogleAuthProvider, signInWithPopup, onAuthStateChanged, getAuth, signOut} from "firebase/auth"
 
 const firebaseConfig = {
@@ -17,7 +17,7 @@ const provider = new GoogleAuthProvider();
 
 
 const db = getFirestore(app);
-const coll= collection(db, "users");
+const coll= collection(db, "messages");
 
 
 
@@ -30,21 +30,22 @@ const coll= collection(db, "users");
 ///realtime get onSnapshot
 
 
-  // addDoc(collection(db, "users"), {
-        //   first: "Ada",
-        //   last: "Lovelace",
-        //   born: 1815
-        // }).then(snapshot =>{ console.log("Document written with ID: ", snapshot.id)});
+
        
 
 
 
 
-
-
-
+export const sendMessage = (uId, message, profileImageURL) => {
+  addDoc(collection(db, "messages"), {
+    uId: uId,
+    message: message,
+    profileImageURL: profileImageURL,
+    creatingTime: serverTimestamp(),
+  });
+}
 
 export const userLogin = _ => signInWithPopup(getAuth(), provider);
 export const userLogout = _ => signOut(getAuth());
 
-export {provider, signInWithPopup, onAuthStateChanged, getAuth, signOut, onSnapshot, coll}
+export {provider, signInWithPopup, onAuthStateChanged, getAuth, signOut, onSnapshot, coll, getDocs, query, orderBy, limit }
